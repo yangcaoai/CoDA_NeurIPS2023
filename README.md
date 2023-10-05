@@ -26,14 +26,12 @@ All the data, codes and pretrain models will be released soon.
 ## :scroll: BibTeX
 If CoDA is helpful, please cite:
 ```
-@misc{cao2023coda,
-      title={CoDA: Collaborative Novel Box Discovery and Cross-modal Alignment for Open-vocabulary 3D Object Detection}, 
-      author={Yang Cao and Yihan Zeng and Hang Xu and Dan Xu},
-      year={2023},
-      eprint={2310.02960},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}          
+@inproceedings{cao2023coda,
+  title={CoDA: Collaborative Novel Box Discovery and Cross-modal Alignment for Open-vocabulary 3D Object Detection},
+  author={Cao, Yang and Zeng, Yihan and Xu, Hang  and  Xu, Dan},
+  booktitle={NeurIPS},
+  year={2023}
+}   
 ```
 
 ### :e-mail: Contact
