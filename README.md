@@ -15,8 +15,8 @@
 All the data, codes and pretrain models will be released soon.
 
 ## Samples  
-<img src="assets/CoDA_sup_fig0_v3_cropped.png">
-<img src="assets/CoDA_sup_fig1_v3_cropped.png">
+<img src="assets/CoDA_sup_fig0_v3_cropped_compressed.png">
+<img src="assets/CoDA_sup_fig1_v3_cropped_compressed.png">
 
 ## Framework  
 <img src="assets/ov3d_det.png">
