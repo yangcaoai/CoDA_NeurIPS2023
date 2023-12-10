@@ -20,7 +20,7 @@ The pretrained models and datasets will be released soon.
 <img src="assets/ov3d_det.png">
 
 ## Samples  
-<img src="assets/CoDA_sup_fig0_v3_cropped_compressed.png">
+<img src="assets/CoDA_sup_fig0_v3_cropped_compressed_v2.png">
 
 ## :scroll: BibTeX
 If CoDA is helpful, please cite:
