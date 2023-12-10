@@ -16,14 +16,12 @@ The training and testing codes have been released!
 
 The pretrained models and datasets will be released soon.
 
-## Samples  
-<img src="assets/CoDA_sup_fig0_v3_cropped_compressed.png">
-<img src="assets/CoDA_sup_fig1_v3_cropped_compressed.png">
-
 ## Framework  
 <img src="assets/ov3d_det.png">
 
-
+## Samples  
+<img src="assets/CoDA_sup_fig0_v3_cropped_compressed.png">
+<img src="assets/CoDA_sup_fig1_v3_cropped_compressed.png">
 
 ## :scroll: BibTeX
 If CoDA is helpful, please cite:
