@@ -1,0 +1,51 @@
+#!/bin/bash
+# Copyright (c) Facebook, Inc. and its affiliates.
+python main.py --dataset_name sunrgbd_anonymous_aligned_image \
+--model_name 3detr_predictedbox_distillation \
+--if_input_image \
+--if_image_augment True \
+--enc_dim 256 \
+--dec_dim 512 \
+--cross_enc_dim 256 \
+--cross_num_layers 3 \
+--cross_heads 4 \
+--cross_enc_nlayers 3 \
+--every_number 4 \
+--num_semcls 2 \
+--dataset_num_workers 4 \
+--dataset_num_workers_test 4 \
+--train_range_min 0 \
+--train_range_max 10 \
+--test_range_min 0 \
+--test_range_max 46 \
+--max_epoch 1080 \
+--ngpus 8 \
+--nqueries 128 \
+--base_lr 1.97e-4  \
+--warm_lr_epochs 18 \
+--eval_every_epoch 10000000000 \
+--batchsize_per_gpu 8 \
+--matcher_giou_cost 3 \
+--pooling_methods average \
+--matcher_cls_cost 1 \
+--matcher_center_cost 5 \
+--matcher_objectness_cost 5 \
+--loss_giou_weight 0 \
+--loss_no_object_weight 0.05 \
+--loss_contrastive_weight 0 \
+--loss_sem_focal_cls_weight 0 \
+--loss_sem_cls_weight 0 \
+--loss_sem_cls_softmax_weight 0 \
+--loss_no_object_contrast_weight 0.05 \
+--loss_region_embed_weight 0 \
+--loss_contrast_object_text 0 \
+--loss_predicted_region_embed_l1_weight 1 \
+--save_separate_checkpoint_every_epoch 90 \
+--dist_url tcp://localhost:16699 \
+--checkpoint_dir outputs/coda_sunrgbd_stage1 \
+--if_clip_more_prompts \
+--loss_sem_cls_softmax_skip_none_gt_sample_weight 1 \
+--real_eval_every_epoch 90 \
+--real_cmp_eval_every_epoch 90 \
+--if_use_v1 \
+--test_num_semcls 46 \

@@ -1,0 +1,70 @@
+#!/bin/bash
+# Copyright (c) Facebook, Inc. and its affiliates.
+python main.py --dataset_name sunrgbd_anonymous_aligned_image_with_novel_cate_confi \
+--model_name 3detr_predictedbox_distillation \
+--if_input_image \
+--if_image_augment True \
+--enc_dim 256 \
+--dec_dim 512 \
+--cross_enc_dim 256 \
+--cross_num_layers 3 \
+--cross_heads 4 \
+--cross_enc_nlayers 3 \
+--every_number 4 \
+--num_semcls 2 \
+--dataset_num_workers 4 \
+--dataset_num_workers_test 4 \
+--train_range_min 0 \
+--train_range_max 10 \
+--test_range_min 0 \
+--test_range_max 46 \
+--max_epoch 1080 \
+--ngpus 8 \
+--nqueries 128 \
+--base_lr 1.97e-4  \
+--warm_lr_epochs 18 \
+--eval_every_epoch 10000000000 \
+--batchsize_per_gpu 8 \
+--batchsize_per_gpu_test 32 \
+--matcher_giou_cost 3 \
+--pooling_methods average \
+--matcher_cls_cost 1 \
+--matcher_center_cost 5 \
+--matcher_objectness_cost 5 \
+--loss_giou_weight 0 \
+--loss_no_object_weight 0.05 \
+--loss_contrastive_weight 0 \
+--loss_sem_focal_cls_weight 0 \
+--loss_sem_cls_weight 0 \
+--loss_sem_cls_softmax_weight 0 \
+--loss_no_object_contrast_weight 0.05 \
+--loss_region_embed_weight 0 \
+--loss_contrast_object_text 0 \
+--loss_predicted_region_embed_l1_weight 1 \
+--save_separate_checkpoint_every_epoch 20 \
+--dist_url tcp://localhost:16306 \
+--checkpoint_dir outputs/coda_sunrgbd_stage2 \
+--checkpoint_file outputs/coda_sunrgbd_stage1/last_checkpoint.pth \
+--if_clip_more_prompts \
+--keep_objectness 1000 \
+--save_objectness 0.3 \
+--online_nms_update_save_epoch 50 \
+--pseudo_setting setting0 \
+--if_reset_epoch_periodically \
+--reset_epoch_periodically 50 \
+--set_epoch 0 \
+--real_eval_every_epoch 20 \
+--loss_sem_cls_softmax_skip_none_gt_sample_weight 1 \
+--clip_driven_keep_thres 0.3 \
+--if_clip_superset \
+--real_cmp_eval_every_epoch 1000000000 \
+--if_use_v1 \
+--test_num_semcls 46 \
+--distillation_box_num 32 \
+--if_clip_superset \
+--loss_feat_seen_softmax_weakly_loss_with_novel_cate_confi_weight 1 \
+--online_nms_update_save_novel_label_clip_driven_with_cate_confidence \
+--confidence_type_in_datalayer weight_one \
+--if_clip_weak_labels \
+--confidence_type  non-confidence \
+--if_accumulate_former_pseudo_labels \

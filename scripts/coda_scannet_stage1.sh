@@ -1,0 +1,57 @@
+#!/bin/bash
+# Copyright (c) Facebook, Inc. and its affiliates.
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+python main.py --dataset_name scannet_anonymous_aligned_image \
+--model_name 3detr_predictedbox_distillation \
+--if_input_image \
+--if_image_augment True \
+--enc_dim 256 \
+--dec_dim 512 \
+--cross_enc_dim 256 \
+--cross_num_layers 3 \
+--cross_heads 4 \
+--cross_enc_nlayers 3 \
+--every_number 4 \
+--num_semcls 2 \
+--dataset_num_workers 4 \
+--dataset_num_workers_test 4 \
+--train_range_min 0 \
+--train_range_max 10 \
+--test_range_min 0 \
+--test_range_max 60 \
+--max_epoch 1080 \
+--ngpus 8 \
+--nqueries 128 \
+--base_lr 1.4142e-4 \
+--warm_lr_epochs 18 \
+--eval_every_epoch 10000000000 \
+--batchsize_per_gpu 8 \
+--batchsize_per_gpu_test 32 \
+--train_range_list 2 4 5 7 13 15 16 22 56 1163 \
+--test_range_list 2 4 5 6 7 8 9 10 11 13 14 15 16 17 18 19 21 22 23 24 26 27 28 29 31 32 33 34 35 36 38  39  40  41  42  44  45  46  47  48  49  50  51  52  54  55  56  57  58  59  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  82  84  86  87  88  89  90  93  95  96  97  98  99  100  101  102  103  104  105  106  107  110  112  115  116  118  120  121  122  125  128  130  131  132  134  136  138  139  140  141  145  148  154  155  156  157  159  161  163  165  166  168  169  170  177  180  185  188  191  193  195  202  208  213  214  221  229  230  232  233  242  250  261  264  276  283  286  300  304  312  323  325  331  342  356  370  392  395  399  408  417  488  540 562  570  572  581  609  748  776  1156  1163  1164  1165  1166  1167  1168  1169  1170  1171  1172  1173  1174  1175  1176  1178  1179  1180  1181  1182  1183  1184  1185  1186  1187  1188  1189  1190  1191 \
+--matcher_giou_cost 2 \
+--matcher_cls_cost 1 \
+--matcher_center_cost 0 \
+--matcher_objectness_cost 0 \
+--loss_giou_weight 0 \
+--loss_no_object_weight 0.25 \
+--loss_contrastive_weight 0 \
+--loss_sem_focal_cls_weight 0 \
+--loss_sem_cls_weight 0 \
+--loss_sem_cls_softmax_weight 0 \
+--loss_no_object_contrast_weight 0.05 \
+--loss_region_embed_weight 0 \
+--loss_contrast_object_text 0 \
+--loss_predicted_region_embed_l1_weight 1 \
+--save_separate_checkpoint_every_epoch 90 \
+--dist_url tcp://localhost:18669 \
+--checkpoint_dir outputs/coda_scannet_stage1 \
+--if_clip_more_prompts \
+--loss_sem_cls_softmax_skip_none_gt_sample_weight 1 \
+--real_eval_every_epoch 90 \
+--real_cmp_eval_every_epoch 100000000000 \
+--image_size_width 1296 \
+--image_size_height 968 \
+--test_num_semcls 60 \
+--pooling_methods  'average' \
+--reset_scannet_num 50 \
