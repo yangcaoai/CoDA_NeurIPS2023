@@ -1,0 +1,10 @@
+# ninja log v5
+0	11974	1665479274773290491	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/group_points_gpu.o	d169e5d86f6ed3eb
+3	12116	1665479274909290485	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/interpolate_gpu.o	b0e90574dbe81cbb
+4	12339	1665479275137290475	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/sampling_gpu.o	77efeea8c58008db
+1	12454	1665479275249290470	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/ball_query_gpu.o	d158a794fcf4717f
+2	15682	1665479278473290333	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/group_points.o	59f177ea78d746f8
+0	15740	1665479278533290330	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/ball_query.o	6adf1dd70991ca5
+2	15913	1665479278709290323	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/interpolate.o	9f881448703bfe6f
+4	15926	1665479278713290323	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/sampling.o	68ac1222d98aafe3
+1	18092	1665479280885290230	/home/xuhang/yang/codes/3detr/third_party_pointnet2/pointnet2/build/temp.linux-x86_64-cpython-37/_ext_src/src/bindings.o	a8f1101183cc25ed
