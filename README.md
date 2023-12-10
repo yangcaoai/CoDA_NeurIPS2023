@@ -12,7 +12,8 @@
 > Huawei Noah's Ark Lab
 
 :triangular_flag_on_post: **Updates**  
-All the data, codes and pretrain models will be released soon.
+The training and testing codes have been released!
+The pretrained models and datasets will be released soon.
 
 ## Samples  
 <img src="assets/CoDA_sup_fig0_v3_cropped_compressed.png">
