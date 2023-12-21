@@ -31,7 +31,7 @@ python main.py --dataset_name sunrgbd_anonymous_aligned_image \
 --loss_sem_cls_softmax_skip_none_gt_sample_weight 1 \
 --save_separate_checkpoint_every_epoch 90 \
 --dist_url tcp://localhost:15699 \
---checkpoint_dir outputs/baseline_sunrgbd \
+--checkpoint_dir outputs/coda_baseline_sunrgbd \
 --if_with_clip \
 --real_eval_every_epoch 90 \
 --real_cmp_eval_every_epoch 90 \

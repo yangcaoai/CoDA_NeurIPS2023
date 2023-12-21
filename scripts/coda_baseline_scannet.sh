@@ -9,7 +9,7 @@ python main.py \
 --base_lr 1.4142e-4 \
 --enc_dim 256 \
 --dec_dim 512 \
---checkpoint_dir outputs/baseline_scannet \
+--checkpoint_dir outputs/coda_baseline_scannet \
 --batchsize_per_gpu 8  \
 --batchsize_per_gpu_test 48  \
 --train_range_min 0 \
