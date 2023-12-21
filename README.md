@@ -1,7 +1,7 @@
 
 ## :book: CoDA: Collaborative Novel Box Discovery and Cross-modal Alignment for Open-vocabulary 3D Object Detection (NeurIPS2023)
 <p align="center">
-  <small>:fire: If CoDA is helpful for your community, please help to :star: it and share it. Thanks:fire:</small>
+  <small> If CoDA is helpful for your community, please help to star it and share it. Thanks. </small>
 </p>
 
 > [[Paper](https://arxiv.org/abs/2310.02960)] &emsp; [[Project Page](https://yangcaoai.github.io/publications/CoDA.html)] <br>
@@ -12,16 +12,15 @@
 > Huawei Noah's Ark Lab
 
 :triangular_flag_on_post: **Updates**  
-All the data, codes and pretrain models will be released soon.
+The training and testing codes have been released!
 
-## Samples  
-<img src="assets/CoDA_sup_fig0_v3_cropped_compressed.png">
-<img src="assets/CoDA_sup_fig1_v3_cropped_compressed.png">
+The pretrained models and datasets will be released soon.
 
 ## Framework  
 <img src="assets/ov3d_det.png">
 
-
+## Samples  
+<img src="assets/CoDA_sup_fig0_v3_cropped_compressed_v2.jpg">
 
 ## :scroll: BibTeX
 If CoDA is helpful, please cite:
