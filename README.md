@@ -14,7 +14,9 @@
 :triangular_flag_on_post: **Updates**  
 The training and testing codes have been released!
 
-The pretrained models and datasets will be released soon.
+The pretrained models have been released on [here](https://drive.google.com/file/d/1fTKX1ML5u8jJ249GwAYqdCZGs941907H/view?usp=drive_link).
+
+The datasets will be released soon.
 
 ## Framework  
 <img src="assets/ov3d_det.png">
