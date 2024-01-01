@@ -75,4 +75,4 @@ def read_pc_data(path, out_path=None):
 
 
 
-# read_pc_data('Data/3d_indoor/sunrgb_d/sunrgbd_v1_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_0415_val/000080')
+# read_pc_data('Data/sunrgb_d/sunrgbd_v1_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_0415_val/000080')

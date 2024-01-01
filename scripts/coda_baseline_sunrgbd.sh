@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (c) Facebook, Inc. and its affiliates.
-mkdir Data/3d_indoor/sunrgb_d/sunrgbd_v1_revised_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_revised_0415_minival
+mkdir Data/sunrgb_d/sunrgbd_v1_revised_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_revised_0415_minival
 python main.py --dataset_name sunrgbd_anonymous_aligned_image \
 --model_name 3detrmulticlasshead \
 --if_input_image \
