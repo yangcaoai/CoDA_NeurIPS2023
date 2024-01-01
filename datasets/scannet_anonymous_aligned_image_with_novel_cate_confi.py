@@ -26,9 +26,9 @@ if here_path.find('user-job-dir')!=-1:
     DATASET_ROOT_DIR = "/cache/data/make_data_scannet200_cluster/scannet_frames_25k_200cls_train"  ## Replace with path to dataset
     DATASET_PARAMS_DIR = "/cache/data/make_data_scannet200_cluster/matrix"
 else:
-    # DATASET_SCANS_DIR = "Data/3d_indoor/scannet/scans/scans/"  ## Replace with path to dataset
-    DATASET_ROOT_DIR = "Data/3d_indoor/scannet/scans/scannet_frames_25k/make_data_scannet200_cluster/scannet_frames_25k_200cls_train"
-    DATASET_PARAMS_DIR = "Data/3d_indoor/scannet/scans/scannet_frames_25k/make_data_scannet200_cluster/matrix"
+    # DATASET_SCANS_DIR = "Data/scannet/scans/scans/"  ## Replace with path to dataset
+    DATASET_ROOT_DIR = "Data/scannet/make_data_scannet200_cluster/scannet_frames_25k_200cls_train"
+    DATASET_PARAMS_DIR = "Data/scannet/make_data_scannet200_cluster/matrix"
 
 DATASET_CLASS_NAME_ID = "datasets/scannet_200_class2id.npy"
 DATASET_METADATA_DIR = "datasets/meta_data" ## Replace with path to dataset

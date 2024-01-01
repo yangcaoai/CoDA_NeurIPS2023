@@ -1447,7 +1447,7 @@ def show_boxes(
             # if im_name_tmp != '000080':
             #     continue
             # just comments for a while
-            color_pc_path = 'Data/3d_indoor/sunrgb_d/sunrgbd_v1_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_0415_val/%s' % im_name_tmp
+            color_pc_path = 'Data/sunrgb_d/sunrgbd_v1_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_0415_val/%s' % im_name_tmp
             # read_pc_data(color_pc_path, out_path=out_dir)
             tmp_point_clouds_np = point_cloud_rgb_this_batch[sample_idx].cpu().numpy()
             write_ply_rgb(tmp_point_clouds_np[:, 0:6], out_dir+'/'+'%s_pc.ply' % im_name_tmp)
@@ -1700,7 +1700,7 @@ def save_box_points(
             # if im_name_tmp != '000080':
             #     continue
             # just comments for a while
-            # color_pc_path = 'Data/3d_indoor/sunrgb_d/sunrgbd_v1_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_0415_val/%s' % im_name_tmp
+            # color_pc_path = 'Data/sunrgb_d/sunrgbd_v1_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_0415_val/%s' % im_name_tmp
             # read_pc_data(color_pc_path, out_path=out_dir)
             # tmp_point_clouds_np = point_cloud_rgb_this_batch[sample_idx].cpu().numpy() # np.min: -1.74, max: 8.3
 
@@ -2012,7 +2012,7 @@ def save_seen(
         # print('44444444444444444444444')
         for sample_idx in range(len(point_cloud_rgb_this_batch)):
             im_name_tmp = os.path.basename(im_name_list[sample_idx])[:-4]
-            # if 'Data/3d_indoor/sunrgb_d/sunrgbd_trainval/image/007426.jpg' == im_name_list[sample_idx]:
+            # if 'Data/sunrgb_d/sunrgbd_trainval/image/007426.jpg' == im_name_list[sample_idx]:
             #     print(1)
 
 
@@ -2218,7 +2218,7 @@ def save_novel(
         # print('44444444444444444444444')
         for sample_idx in range(len(point_cloud_rgb_this_batch)):
             im_name_tmp = os.path.basename(im_name_list[sample_idx])[:-4]
-            # if 'Data/3d_indoor/sunrgb_d/sunrgbd_trainval/image/007426.jpg' == im_name_list[sample_idx]:
+            # if 'Data/sunrgb_d/sunrgbd_trainval/image/007426.jpg' == im_name_list[sample_idx]:
             #     print(1)
             box_name = im_name_tmp + '_novel_bbox.npy'
 
@@ -2418,7 +2418,7 @@ def save_novel_with_class(
         # print('44444444444444444444444')
         for sample_idx in range(len(point_cloud_rgb_this_batch)):
             im_name_tmp = os.path.basename(im_name_list[sample_idx])[:-4]
-            # if 'Data/3d_indoor/sunrgb_d/sunrgbd_trainval/image/007426.jpg' == im_name_list[sample_idx]:
+            # if 'Data/sunrgb_d/sunrgbd_trainval/image/007426.jpg' == im_name_list[sample_idx]:
             #     print(1)
             box_name = im_name_tmp + '_novel_bbox.npy'
 
