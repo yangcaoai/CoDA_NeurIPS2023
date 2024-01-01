@@ -27,6 +27,37 @@ The OV-setting ScanNet datasets have been released on [here](https://hkustconnec
 ## Samples  
 <img src="assets/CoDA_sup_fig0_v3_cropped_compressed_v2.jpg">
 
+## Installation
+Our code is based on PyTorch 1.8.1, torchvision==0.9.1, CUDA 10.1 and Python 3.7. It may work with other versions.
+
+Please also install the following Python dependencies:
+
+```
+matplotlib
+opencv-python
+plyfile
+'trimesh>=2.35.39,<2.35.40'
+'networkx>=2.2,<2.3'
+scipy
+```
+
+Please install `pointnet2` layers by running
+
+```
+cd third_party/pointnet2 && python setup.py install
+```
+
+Please install a Cythonized implementation of gIOU for faster training.
+```
+conda install cython
+cd utils && python cython_compile.py build_ext --inplace
+```
+
+## Dataset preparation
+
+To achieve the OV setting, we re-organize the original [ScanNet](https://github.com/facebookresearch/votenet/tree/main/scannet)t and [SUN RGB-D](https://github.com/facebookresearch/votenet/tree/main/sunrgbd) and adopt annotations of more categories. Please directly download the ov-setting datasets we prepare here: [SUN RGB-D](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EqeHrtMq5aZBmnZUR79vub4B9HZIBxYLd5K7z6VuvemHzg?e=e7ooDv) and [ScanNet](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EsqoPe7-VFxOlY0a-v1-vPwBSiEHoGRTgK5cLIhnjyXiEQ?e=jY7nKT).
+
+
 ## :scroll: BibTeX
 If CoDA is helpful, please cite:
 ```
