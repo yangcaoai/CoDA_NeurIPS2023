@@ -55,8 +55,21 @@ cd utils && python cython_compile.py build_ext --inplace
 
 ## Dataset preparation
 
-To achieve the OV setting, we re-organize the original [ScanNet](https://github.com/facebookresearch/votenet/tree/main/scannet) and [SUN RGB-D](https://github.com/facebookresearch/votenet/tree/main/sunrgbd) and adopt annotations of more categories. Please directly download the ov-setting datasets we prepare here: [OV SUN RGB-D](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EqeHrtMq5aZBmnZUR79vub4B9HZIBxYLd5K7z6VuvemHzg?e=e7ooDv) and [OV ScanNet](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EsqoPe7-VFxOlY0a-v1-vPwBSiEHoGRTgK5cLIhnjyXiEQ?e=jY7nKT).
+To achieve the OV setting, we re-organize the original [ScanNet](https://github.com/facebookresearch/votenet/tree/main/scannet) and [SUN RGB-D](https://github.com/facebookresearch/votenet/tree/main/sunrgbd) and adopt annotations of more categories. Please directly download the ov-setting datasets we provide here: [OV SUN RGB-D](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EqeHrtMq5aZBmnZUR79vub4B9HZIBxYLd5K7z6VuvemHzg?e=e7ooDv) and [OV ScanNet](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EsqoPe7-VFxOlY0a-v1-vPwBSiEHoGRTgK5cLIhnjyXiEQ?e=jY7nKT).
 
+Then run for the downloaded *.tar file:
+```
+mv sunrgbd_trainval.tar Data/sunrgb_d/
+mv sunrgbd_v1_revised_0415.tar Data/sunrgb_d/
+cd Data/sunrgb_d/
+tar -xvf sunrgbd_v1_revised_0415.tar
+tar -xvf sunrgbd_trainval.tar
+cd -
+mv scannet200_data.tar.* Data/scannet/
+cd Data/scannet/
+cat scannet200_data.tar.* | tar -xvf
+cd -
+```
 
 ## :scroll: BibTeX
 If CoDA is helpful, please cite:
