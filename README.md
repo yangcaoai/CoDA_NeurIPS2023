@@ -12,13 +12,13 @@
 > Huawei Noah's Ark Lab
 
 :triangular_flag_on_post: **Updates**  
-The training and testing codes have been released!
+The training and testing codes have been released.
 
 The pretrained models have been released on [here](https://drive.google.com/file/d/1fTKX1ML5u8jJ249GwAYqdCZGs941907H/view?usp=drive_link).
 
 The OV-setting SUN-RGBD datasets have been released on [here](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EqeHrtMq5aZBmnZUR79vub4B9HZIBxYLd5K7z6VuvemHzg?e=e7ooDv).  
 
-The ScanNet datasets will be released soon!
+The OV-setting ScanNet datasets have been released on [here](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EsqoPe7-VFxOlY0a-v1-vPwBSiEHoGRTgK5cLIhnjyXiEQ?e=jY7nKT).
 
 
 ## Framework  
