@@ -76,13 +76,12 @@ cd -
 
 ## Evaluation
 Download the pretrained models [here](https://drive.google.com/file/d/1fTKX1ML5u8jJ249GwAYqdCZGs941907H/view?usp=drive_link).
-Run:
+Then run:
 ```
 bash test_release_models.sh
 ```
 
 ## Training
-Run:
 ```
 bash coda_sunrgbd_stage1.sh
 bash coda_sunrgbd_stage2.sh
