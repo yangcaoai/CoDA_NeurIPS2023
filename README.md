@@ -23,6 +23,7 @@
 
 &#9745; The OV-setting ScanNet datasets have been released.
 
+&#9745; Paper LaTeX codes are available at https://scienhub.com/Yang/CoDA.
 
 ## Framework  
 <img src="assets/ov3d_det.png">
@@ -98,7 +99,7 @@ If CoDA is helpful, please cite:
 }   
 ```
 
-### :e-mail: Contact
+## :e-mail: Contact
 
 If you have any question or collaboration need (research purpose or commercial purpose), please email `yangcao.cs@gmail.com`.
 
