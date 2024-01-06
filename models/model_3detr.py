@@ -895,6 +895,317 @@ class Model3DETRPredictedBoxDistillationHead(nn.Module):
         iou = inter / (area1 + area2 - inter)
         return iou
 
+
+    def get_predicted_box_clip_embedding(self, inputs, outputs, thres_obj=0.05, if_use_gt_box=False,
+                                         if_expand_box=False,
+                                         if_padding_input=True,
+                                         test=False,
+                                         curr_epoch=-1):  # the max number of classes are 18(train) and 14(val)
+        gt_center_ori = outputs[
+            "box_corners_xyz"]  # .clone().detach() #inputs["gt_box_corners_xyz"]  # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
+        objectness_prob = outputs["objectness_prob"]
+        # img_batch_name = inputs['im_name']
+        # gt_angles = inputs["gt_box_angles"]
+        # gt_sizes = inputs["gt_box_sizes"]
+        # tmp = outputs['center_unnormalized']  # shape: (8, 128, 3)
+        K_tensor = inputs['K']
+        Rtilt_tensor = inputs['Rtilt']
+        flip_array = inputs['flip_array'].unsqueeze(-1)
+
+        scale_array = inputs['scale_array'].unsqueeze(1)
+        rot_array = inputs['rot_array'].unsqueeze(1)
+        # back the augmentation for point cloud
+        gt_center = gt_center_ori * scale_array  # [:, :2, :]
+        gt_center = torch.matmul(gt_center, rot_array)
+        if 'zx_flip_array' in inputs.keys():
+            zx_flip_array = inputs['zx_flip_array'].unsqueeze(-1)
+            gt_center[:, :, :, 1] = gt_center[:, :, :, 1] * zx_flip_array
+        gt_center[:, :, :, 0] = gt_center[:, :, :, 0] * flip_array  # [:, :2, :]
+        # back to original image
+        # center_2dpoints = torch.zeros((8, 64, 8, 2), device=self.device)
+        # for idx_batch in range(center_2dpoints.shape[1]):
+        #     center_2dpoints[:, idx_batch, :, :] = project_3dpoint_to_2dpoint_tensor(center_pos.to(torch.double)[:, idx_batch, :, :], K_tensor=K_tensor, Rtilt_tensor=Rtilt_tensor)
+        center_2dpoints, depth = self.dataset_util.project_3dpoint_to_2dpoint_corners_tensor(gt_center.to(torch.double),
+                                                                                             K_tensor=K_tensor,
+                                                                                             Rtilt_tensor=Rtilt_tensor)
+        # center_2dpoints, _ = project_3dpoint_to_2dpoint_corners_tensor(gt_center, gt_angles, gt_sizes, K_tensor=K_tensor,
+        #                                                     Rtilt_tensor=Rtilt_tensor)
+
+        # center_pos = inputs["gt_box_corners"] # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
+        # center_pos = outputs['center_unnormalized']  # shape: (8, 128, 3)
+        # K_tensor = inputs['K']
+        # Rtilt_tensor = inputs['Rtilt']
+        # flip_array = inputs['flip_array']#.unsqueeze(-1)
+        # scale_array = inputs['scale_array']   #.unsqueeze(1)
+        # rot_array = inputs['rot_array']       #.unsqueeze(1)
+        # # back the augmentation for point cloud
+        # center_pos = center_pos * scale_array  # [:, :2, :]
+        # center_pos = torch.bmm(center_pos, rot_array)
+        # center_pos[:, :,  0] = center_pos[:, :,  0] * flip_array  # [:, :2, :]
+        # center_2dpoints = project_3dpoint_to_2dpoint_tensor(center_pos.to(torch.double), K_tensor=K_tensor,
+        #                                                     Rtilt_tensor=Rtilt_tensor)
+
+        # clip the point in the original size of the image
+        for idx_batch in range(center_2dpoints.shape[0]):
+            center_2dpoints[idx_batch, :, :, 0] = torch.clip(center_2dpoints[idx_batch, :, :, 0], min=0,
+                                                             max=inputs["ori_width"][idx_batch] - 1)
+            center_2dpoints[idx_batch, :, :, 1] = torch.clip(center_2dpoints[idx_batch, :, :, 1], min=0,
+                                                             max=inputs["ori_height"][idx_batch] - 1)
+            center_2dpoints[idx_batch, :, :, 0] += inputs['y_offset'][idx_batch].unsqueeze(-1)
+            center_2dpoints[idx_batch, :, :, 1] += inputs['x_offset'][idx_batch].unsqueeze(
+                -1)  # .unsqueeze(-1)  # short height
+        # center_2dpoints[:, :, :, 0] = torch.maximum(
+        #     torch.minimum(center_2dpoints[:, :, :, 0], (inputs["ori_width"].unsqueeze(-1) - 1)), self.zeros_tensor)
+        # center_2dpoints[:, :, :, 1] = torch.maximum(
+        #     torch.minimum(center_2dpoints[:, :, :, 1], (inputs["ori_height"].unsqueeze(-1) - 1)), self.zeros_tensor)
+
+        # center_2dpoints[:, :, 0] = torch.clip(center_2dpoints[:, :, 0], min=)
+        # do the padding in the datalayer
+
+        # do the flip in the datalayer
+        image_flip_array = inputs["image_flip_array"].unsqueeze(-1)
+        flip_length = inputs["flip_length"].unsqueeze(-1).unsqueeze(-1)
+        center_2dpoints[:, :, :, 0] = center_2dpoints[:, :, :, 0] * image_flip_array + (1 - image_flip_array) * (
+                flip_length - 1 - center_2dpoints[:, :, :, 0])
+
+        # outputs['gt_text_correlation_embedding'] = torch.zeros((center_2dpoints.shape[0], center_2dpoints.shape[1], outputs["text_correlation_embedding"].shape[2]), device=self.device)
+        outputs['gt_text_correlation_embedding'] = torch.zeros(
+            (center_2dpoints.shape[0], center_2dpoints.shape[1], 512),  # change version
+            device=self.device)
+        # outputs['gt_text_correlation_embedding'] = torch.zeros(
+        #     (center_2dpoints.shape[0], center_2dpoints.shape[1], 768),
+        #     device=self.device)
+        outputs['gt_text_correlation_embedding_mask'] = torch.zeros(
+            (center_2dpoints.shape[0], center_2dpoints.shape[1], 1),
+            device=self.device)
+        for idx_batch in range(center_2dpoints.shape[0]):
+            proposal_feature_list = []
+            idx_box_list = []
+            # cv2.imwrite(os.path.join('./%s_3d_to_2d_box_image.png' % idx_batch), inputs['input_image'][idx_batch].cpu().numpy())
+            # if_keep_box = torch.rand(size=(center_2dpoints.shape[1], 1), device=self.device, requires_grad=False)
+            objectness_prob_this_batch = objectness_prob[idx_batch]
+            if (not self.if_select_box_by_objectness) or curr_epoch < 540:
+                select_list = np.random.choice(self.box_idx_list, self.distillation_box_num, replace=False)
+            else:
+                ob_list = torch.nonzero(objectness_prob_this_batch > 0.05)
+                # locat_ob_list = torch.nonzero(objectness_prob_this_batch > 0.5)
+                # locat_ob_list = locat_ob_list.cpu().numpy()
+                ob_list = ob_list.cpu().numpy()
+                if ob_list.shape[0] >= self.distillation_box_num:
+                    select_list = ob_list[:, 0]
+                else:
+                    bg_list = torch.nonzero(objectness_prob_this_batch <= 0.05)
+                    bg_list = bg_list.cpu().numpy()
+                    left_len = self.distillation_box_num - ob_list.shape[0]
+                    select_list = np.concatenate(
+                        (ob_list[:, 0], np.random.choice(bg_list[:, 0], left_len, replace=False)))
+
+            # select_list = np.random.choice(self.box_idx_list, 32, replace=False)
+            # assert len(select_list) >= 30
+            # print(select_list)
+            # print(len(select_list))
+            locat_idx_box_list = []
+            for idx_box in select_list:
+                img = inputs['input_image'][idx_batch]
+                box_size = outputs["size_unnormalized"][idx_batch][idx_box]
+                if torch.max(box_size) < 1e-16:  # when displaying gt, some of the box_size will be zeros
+                    # outputs['gt_region_embedding'][idx_batch, idx_box] = outputs['region_embedding'][idx_batch, idx_box]
+                    # idx_box_list.append(0)
+                    continue
+                corners_3d_image = center_2dpoints[idx_batch][idx_box]
+                # corners_3d_image = center_2dpoints[idx_batch][0]
+                xmin = int(torch.min(corners_3d_image[:, 0]))
+                ymin = int(torch.min(corners_3d_image[:, 1]))
+                xmax = int(torch.max(corners_3d_image[:, 0]))
+                ymax = int(torch.max(corners_3d_image[:, 1]))
+
+                if (xmax - xmin) > 0 and (ymax - ymin) > 0:
+                    img_crop = img[ymin:ymax, xmin:xmax]
+                #     img_crop_show = img_crop.cpu().numpy()
+                # # img_crop_ = img_.crop((ymin_, xmin_, ymax_, xmax_)) # the w, h of Iamge.open is diff from cv2.imread
+                #     cv2.imwrite('debug_show_2/' + os.path.basename(img_batch_name[idx_batch])[:-4] + '_' + str(
+                #         idx_box) + '_2_predicted_embedding.png', img_crop_show)
+                # img_crop_.save(os.path.basename(img_batch_name[idx_batch])[:-4]+'_'+str(idx_box)+'.png')
+                else:
+                    continue
+                if torch.min(depth[idx_batch][idx_box]) < 0:
+                    continue
+
+                idx_box_list.append(idx_box)
+                if objectness_prob_this_batch[idx_box] > self.keep_objectness:
+                    locat_idx_box_list.append(idx_box)
+
+                w = ymax - ymin
+                h = xmax - xmin
+
+                if w > h:
+                    max_edge = w
+                else:
+                    max_edge = h
+                #
+                img_beckground = torch.ones(max_edge, max_edge, img.shape[2], dtype=torch.uint8,
+                                            device=self.device) * 255
+                # part 2
+
+                y_begin = (max_edge - w) // 2
+                x_begin = (max_edge - h) // 2
+                # try:
+                # print(img_crop.shape)
+                # print(x_begin)
+                # print(y_begin)
+                # print(x_begin + h)
+                # print(y_begin + w)
+                # print('============')
+                img_beckground[y_begin:y_begin + w, x_begin:x_begin + h, :] = img_crop
+                # except:
+                # print(1)
+                # part 3
+                img_crop = img_beckground.permute(2, 0, 1)
+                img_crop_resized = self.resize(img_crop)  # change version
+                # print(img_crop_resized.shape)
+                # img_crop_resized = self.test_resize(img_crop)
+                # cv2.imwrite(os.path.join('./show_outputs/no_aug/%s_%s_3d_to_2d_box_gt.png' % (idx_batch, idx_box)), img_crop_resized.permute(1, 2, 0).cpu().numpy())
+                # cv2.imwrite(os.path.join('./show_outputs/no_aug/%s_%s_original.png' % (idx_batch, idx_box)), img.cpu().numpy())
+                img_crop_resized_expand = img_crop_resized.unsqueeze(0)
+                proposal_feature_list.append(img_crop_resized_expand)
+
+            # if len(proposal_feature_list) < 1:
+            #     continue
+            try:
+                img_proposal = torch.cat(proposal_feature_list, 0)
+            except:
+                print('No object on GT, too')
+                continue
+            # im_proposal_ref = np.load('img_proposal.npy')
+            # image_proposal_batch_ref = np.load('image_proposal_batch.npy')
+            # proposal_features_batch_ref = np.load('proposal_features_batch.npy')
+
+            # img_proposal = torch.cat(proposal_feature_list, 0)
+
+            image_proposal_batch = self.preprocess_for_tensor(img_proposal).unsqueeze(0)[0]  # change version
+            # image_proposal_batch_copy = image_proposal_batch.detach().clone()
+            # proposal_features_batch = self.res_encoder(image_proposal_batch, if_pool=True, if_early_feat=False)
+            proposal_features_batch = self.clip_model.encode_image(image_proposal_batch)  # change version
+            # proposal_features_batch_1 = self.clip_model_1.encode_image(image_proposal_batch_copy)  # change version
+            # assert torch.equal(proposal_features_batch, proposal_features_batch_0)
+            # print(idx_box_list)
+            # print(len(idx_box_list))
+            # print('==================')save_seen_feat_only
+            # print(image_proposal_batch.shape)
+            if isinstance(proposal_features_batch, tuple):
+                proposal_features_batch = proposal_features_batch[0]
+            proposal_features_batch = proposal_features_batch.to(torch.float32)
+            # tmp = outputs['gt_text_correlation_embedding'][idx_batch][idx_box_list]
+            outputs['gt_text_correlation_embedding'][idx_batch][idx_box_list] = proposal_features_batch
+            outputs['gt_text_correlation_embedding_mask'][idx_batch][idx_box_list] = 1
+
+            # ob_idx_box_list = locat_ob_list
+            # print(1)
+            if self.if_keep_box and curr_epoch >= 540:
+                if len(locat_idx_box_list) < 1:
+                    continue
+                ob_proposal_features_batch = outputs['gt_text_correlation_embedding'][idx_batch][locat_idx_box_list]
+                text_features_clip = outputs["text_features_clip"][idx_batch].to(torch.float32)
+                # print(text_features_clip.shape)
+                temperature_param = outputs["logit_scale"]
+                # text_correlation_embedding = outputs["text_correlation_embedding"]
+                text_correlation_embedding = ob_proposal_features_batch / (
+                        ob_proposal_features_batch.norm(dim=-1, keepdim=True) + 1e-32)
+                correlation_map = torch.mm(text_correlation_embedding,
+                                           text_features_clip.permute(1, 0)) * temperature_param
+                scores = torch.nn.functional.softmax(correlation_map, dim=-1)
+                max_score, max_id = torch.max(scores, dim=-1)
+
+                novel_list = torch.nonzero(torch.logical_and(max_score > 0.5, max_id > 9))
+                novel_list = novel_list.cpu().numpy()[:, 0]
+                novel_idx_box_list = np.array(locat_idx_box_list)[novel_list]
+                # print(1)
+                begin_idx = int(torch.sum(inputs["gt_box_present"][idx_batch]).item())
+                for novel_idx in novel_idx_box_list:
+                    if begin_idx > 63:
+                        print('Final gt boxs are more than 64')
+                        break
+                    # print('Have new boxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:')
+                    # print(inputs["im_name"][idx_batch])
+                    inputs["gt_box_present"][idx_batch][begin_idx] = 1
+                    this_novel_scores = outputs["angle_logits"][idx_batch][novel_idx].softmax(dim=-1)
+                    max_this_novel_scores, max_idx_this_novel_scores = torch.max(this_novel_scores, dim=-1)
+                    inputs["gt_angle_class_label"][idx_batch][begin_idx] = max_idx_this_novel_scores
+                    inputs["gt_angle_residual_label"][idx_batch][begin_idx] = \
+                        outputs["angle_residual"][idx_batch][novel_idx][max_idx_this_novel_scores]
+                    inputs["gt_box_sizes_normalized"][idx_batch][begin_idx] = outputs["size_normalized"][idx_batch][
+                        novel_idx]
+                    inputs["gt_box_sizes"][idx_batch][begin_idx] = outputs["size_unnormalized"][idx_batch][novel_idx]
+                    inputs["gt_box_corners"][idx_batch][begin_idx] = outputs["box_corners"][idx_batch][novel_idx]
+                    inputs["gt_box_corners_xyz"][idx_batch][begin_idx] = outputs["box_corners_xyz"][idx_batch][
+                        novel_idx]
+                    inputs["gt_box_angles"][idx_batch][begin_idx] = outputs["angle_continuous"][idx_batch][novel_idx]
+                    inputs["gt_box_centers_normalized"][idx_batch][begin_idx] = outputs["center_normalized"][idx_batch][
+                        novel_idx]
+                    inputs["gt_box_centers"][idx_batch][begin_idx] = outputs["center_unnormalized"][idx_batch][
+                        novel_idx]
+                    # a = 1
+                    begin_idx += 1
+
+        if self.if_clip_weak_labels:
+            text_features_clip = outputs["text_features_clip"].to(torch.float32)
+            # print(text_features_clip.shape)
+            temperature_param = outputs["logit_scale"]
+            gt_image_embedding = outputs['gt_text_correlation_embedding']
+            gt_image_embedding_mask = outputs['gt_text_correlation_embedding_mask']
+            gt_image_embedding = gt_image_embedding / (
+                    gt_image_embedding.norm(dim=-1, keepdim=True) + 1e-32)
+            correlation_map = torch.bmm(gt_image_embedding,
+                                        text_features_clip.permute(0, 2, 1)) * temperature_param
+            box_scores = torch.nn.functional.softmax(correlation_map, dim=-1)
+            max_score, max_id = torch.max(box_scores, dim=-1)
+            # bg_id = correlation_map.shape[-1]
+            weak_confidence_weight = max_score
+            weak_box_cate_label = max_id
+            # weak_box_cate_label[gt_image_embedding_mask[:,:,0] < 1] = bg_id # if cann't project to find a 2d box and also cann't assign in the loss, it is taken as a wrong box
+            weak_confidence_weight[gt_image_embedding_mask[:, :,
+                                   0] < 1] = 0.0  # confience_weight for bg object is set to 0, because it is no
+            outputs["weak_box_cate_label"] = weak_box_cate_label
+            outputs["weak_confidence_weight"] = weak_confidence_weight
+        else:
+
+            outputs["weak_box_cate_label"] = torch.zeros(
+                (center_2dpoints.shape[0], center_2dpoints.shape[1]),
+                device=self.device, dtype=torch.int64)
+            outputs["weak_confidence_weight"] = torch.zeros(
+                (center_2dpoints.shape[0], center_2dpoints.shape[1]),
+                device=self.device)
+            # print(1)
+        # just make sure the corners are right
+        # for idx_batch in range(center_2dpoints.shape[0]):
+        #     img_draw2d_box = inputs['input_image'][idx_batch].cpu().numpy()
+        #     center_2dpoints_np = center_2dpoints.cpu().numpy()
+        #     for idx_box in range(center_2dpoints.shape[1]):
+        #
+        #         # img_draw2d_box = sunrgbd_utils.draw_projected_box3d(img_draw2d_box, center_2dpoints_np[idx_batch][idx_box])
+        #         img_draw2d_boximg_draw2d_box = img_draw2d_box
+        #         cv2.imwrite(os.path.join('./debug_show/%s_%s_3d_to_2d_box_im_gt.png' % (idx_batch, idx_box)), img_draw2d_box)
+
+        # # ################### add image embedding
+        # img = inputs['input_image']
+        # max_img_h = max(img.shape[1], img.shape[2])
+        # full_img_beckground = torch.ones(img.shape[0], max_img_h, max_img_h, img.shape[3], dtype=torch.uint8, device=self.device) * 255
+        # y_begin = (max_img_h - img.shape[1]) // 2
+        # x_begin = (max_img_h - img.shape[2]) // 2
+        # full_img_beckground[:, y_begin:y_begin + img.shape[1], x_begin:x_begin + img.shape[2], :] = img
+        # full_img = full_img_beckground.permute(0, 3, 1, 2)
+        # full_img_crop = self.resize(full_img)  #.unsqueeze(0)
+        # full_image_proposal_batch = self.preprocess_for_tensor(full_img_crop).unsqueeze(0)[0]
+        # full_image_proposal_features_batch = self.clip_model.encode_image(full_image_proposal_batch)
+        # if isinstance(full_image_proposal_features_batch, tuple):
+        #     full_image_proposal_features_batch = full_image_proposal_features_batch[0]
+        # full_image_proposal_features_batch = full_image_proposal_features_batch.to(torch.float32)
+        # outputs['full_image_embedding'] = full_image_proposal_features_batch
+        # # ################### add image embedding
+        # full_image_proposal_features_batch = full_image_proposal_features_batch / full_image_proposal_features_batch.norm(dim=1, keepdim=True)
+
+        return outputs
+
     def get_predicted_box_clip_embedding_nms_iou_save_keep_clip_driven_with_cate_confidence(self, inputs, outputs, thres_obj=0.05,
                                                            if_use_gt_box=False,
                                                            if_expand_box=False,
@@ -1498,7 +1809,9 @@ class Model3DETRPredictedBoxDistillationHead(nn.Module):
                                                                                                 box_predictions["outputs"],
                                                                                                 curr_epoch=curr_epoch,
                                                                                                 if_test=if_test)
-
+            else:
+                box_predictions["outputs"] = self.get_predicted_box_clip_embedding(inputs, box_predictions["outputs"],
+                                                                                   curr_epoch=curr_epoch)
         if if_real_test:
             box_predictions["outputs"]["text_features_clip"] = self.text_features_fg_norm.unsqueeze(0).repeat(
                     point_clouds.shape[0], 1, 1)  # text_features_clip
