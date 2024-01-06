@@ -12,13 +12,16 @@
 > Huawei Noah's Ark Lab
 
 :triangular_flag_on_post: **Updates**  
-The training and testing codes have been released.
 
-The pretrained models have been released on [here](https://drive.google.com/file/d/1fTKX1ML5u8jJ249GwAYqdCZGs941907H/view?usp=drive_link).
+&#9745; All the codes, data and pretrained models have beed released!
 
-The OV-setting SUN-RGBD datasets have been released on [here](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EqeHrtMq5aZBmnZUR79vub4B9HZIBxYLd5K7z6VuvemHzg?e=e7ooDv).  
+&#9745; The training and testing codes have been released.
 
-The OV-setting ScanNet datasets have been released on [here](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaobd_connect_ust_hk/EsqoPe7-VFxOlY0a-v1-vPwBSiEHoGRTgK5cLIhnjyXiEQ?e=jY7nKT).
+&#9745; The pretrained models have been released.
+
+&#9745; The OV-setting SUN-RGBD datasets have been released.  
+
+&#9745; The OV-setting ScanNet datasets have been released.
 
 
 ## Framework  
@@ -69,6 +72,19 @@ mv scannet200_data.tar.* Data/scannet/
 cd Data/scannet/
 cat scannet200_data.tar.* | tar -xvf
 cd -
+```
+
+## Evaluation
+Download the pretrained models [here](https://drive.google.com/file/d/1fTKX1ML5u8jJ249GwAYqdCZGs941907H/view?usp=drive_link).
+Then run:
+```
+bash test_release_models.sh
+```
+
+## Training
+```
+bash coda_sunrgbd_stage1.sh
+bash coda_sunrgbd_stage2.sh
 ```
 
 ## :scroll: BibTeX
