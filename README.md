@@ -84,8 +84,8 @@ bash test_release_models.sh
 
 ## Training
 ```
-bash coda_sunrgbd_stage1.sh
-bash coda_sunrgbd_stage2.sh
+bash scripts/coda_sunrgbd_stage1.sh
+bash scripts/coda_sunrgbd_stage2.sh
 ```
 
 ## :scroll: BibTeX
