@@ -13,7 +13,7 @@
 
 :triangular_flag_on_post: **Updates**  
 
-&#9745; All the codes, data and pretrained models have beed released!
+&#9745; All the codes, data and pretrained models have been released!
 
 &#9745; The training and testing codes have been released.
 
