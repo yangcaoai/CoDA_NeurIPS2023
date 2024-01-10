@@ -46,6 +46,6 @@ python main.py --dataset_name sunrgbd_anonymous_aligned_image \
 --if_clip_more_prompts \
 --loss_sem_cls_softmax_skip_none_gt_sample_weight 1 \
 --real_eval_every_epoch 90 \
---real_cmp_eval_every_epoch 90 \
+--real_cmp_eval_every_epoch 100000000000 \
 --if_use_v1 \
 --test_num_semcls 46 \
