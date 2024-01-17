@@ -401,7 +401,14 @@ class SunrgbdAnonymousAlignedImageDetectionDatasetWithNovelCateConfi(Dataset):
         bboxes_source[:, :bboxes_source_tmp.shape[1]] = bboxes_source_tmp
         # bboxes = bboxes_source.copy()
         if self.split_set == 'train':
-            pseudo_bboxes_source_tmp = np.load(pseudo_scan_path + "_novel_bbox.npy")  # K,8
+
+            if os.path.exists(pseudo_scan_path + "_novel_bbox.npy"):
+                pseudo_bboxes_source_tmp = np.load(pseudo_scan_path + "_novel_bbox.npy")  # K,8
+            else:
+                pseudo_bboxes_source_tmp = np.zeros((0, 8))
+                np.save(pseudo_scan_path + "_novel_bbox.npy", pseudo_bboxes_source_tmp)
+
+            # pseudo_bboxes_source_tmp = np.load(pseudo_scan_path + "_novel_bbox.npy")  # K,8
             pseudo_bboxes_source_tmp[:, 3:6] = pseudo_bboxes_source_tmp[:, 3:6] / 2
             pseudo_bboxes_source = np.zeros((pseudo_bboxes_source_tmp.shape[0], 11)) # the last one to see if it is a pseudo label, 0 is a pseudo labels
             pseudo_bboxes_source[:, :pseudo_bboxes_source_tmp.shape[1]] = pseudo_bboxes_source_tmp
