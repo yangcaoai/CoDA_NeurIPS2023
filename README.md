@@ -1,7 +1,7 @@
 
 ## :book: CoDA: Collaborative Novel Box Discovery and Cross-modal Alignment for Open-vocabulary 3D Object Detection (NeurIPS2023)
 <p align="center">
-  <small> 🔥If CoDA is helpful for your community, please help to star it ⭐ and share it. Thanks🔥 </small>
+  <small> 🔥Please star CoDA ⭐ and share it. Thanks🔥 </small>
 </p>
 
 > [[Paper](https://arxiv.org/abs/2310.02960)] &emsp; [[Project Page](https://yangcaoai.github.io/publications/CoDA.html)] <br>
