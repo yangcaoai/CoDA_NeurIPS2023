@@ -79,15 +79,15 @@ def build_dataset(args):
             augment=False,
             if_input_image=args.if_input_image
         ),
-        "minitest": dataset_builder(
-            dataset_config,
-            split_set="minival",
-            root_dir=args.dataset_root_dir,
-            use_color=args.use_color,
-            use_v1=args.if_use_v1,
-            augment=False,
-            if_input_image=args.if_input_image
-        ),
+        # "minitest": dataset_builder(
+        #     dataset_config,
+        #     split_set="minival",
+        #     root_dir=args.dataset_root_dir,
+        #     use_color=args.use_color,
+        #     use_v1=args.if_use_v1,
+        #     augment=False,
+        #     if_input_image=args.if_input_image
+        # ),
         "real_test": real_dataset_builder(
             real_test_config,
             # split_set="novelval",
