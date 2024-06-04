@@ -98,7 +98,13 @@ If CoDA is helpful, please cite:
   author={Cao, Yang and Zeng, Yihan and Xu, Hang  and  Xu, Dan},
   booktitle={NeurIPS},
   year={2023}
-}   
+}
+@article{cao2024collaborative,
+      title={Collaborative Novel Object Discovery and Box-Guided Cross-Modal Alignment for Open-Vocabulary 3D Object Detection}, 
+      author={Yang Cao and Yihan Zeng and Hang Xu and Dan Xu},
+    journal={arXiv preprint arXiv:2406.00830},
+    year={2024}
+}
 ```
 
 ## :e-mail: Contact
