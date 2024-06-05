@@ -13,6 +13,8 @@
 
 :triangular_flag_on_post: **Updates**  
 
+&#9745; Our extended work CoDAv2 is released at [arxiv](https://arxiv.org/abs/2406.00830).
+
 &#9745; Latest papers&codes about open-vocabulary perception are collected [here](https://github.com/yangcaoai/Awesome-Open-Vocabulary-Perception).
 
 &#9745; All the codes, data and pretrained models have been released!
