@@ -5,9 +5,9 @@
 </p>
 
 > [[Paper](https://arxiv.org/abs/2310.02960)] &emsp; [[Project Page](https://yangcaoai.github.io/publications/CoDA.html)] <br>
-<!-- > [Yang Cao](https://harlanhong.github.io), Yihan Zeng, [Hang Xu](https://xuhangcn.github.io/), [Dan Xu](https://www.danxurgb.net) <br> -->
+<!-- > [Yang Cao](https://yangcaoai.github.io/), Yihan Zeng, [Hang Xu](https://xuhangcn.github.io/), [Dan Xu](https://www.danxurgb.net) <br> -->
 <!-- > The Hong Kong University of Science and Technology, Huawei Noah's Ark Lab -->
-> [Yang Cao](https://harlanhong.github.io), Yihan Zeng, [Hang Xu](https://xuhangcn.github.io/), [Dan Xu](https://www.danxurgb.net) <br>
+> [Yang Cao](https://yangcaoai.github.io/), Yihan Zeng, [Hang Xu](https://xuhangcn.github.io/), [Dan Xu](https://www.danxurgb.net) <br>
 > The Hong Kong University of Science and Technology<br>
 > Huawei Noah's Ark Lab
 
