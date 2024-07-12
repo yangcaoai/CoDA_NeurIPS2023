@@ -339,18 +339,7 @@ def do_train(
     logger = Logger(args.checkpoint_dir+'/log/')
 
     os.makedirs(args.checkpoint_dir, exist_ok=True)
-    # print(args.on_cloud)
-    if is_primary() and args.on_cloud:
-        print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/outputs/ -t s3://bucket-cneast3/caoyang/code/3d_vision/outputs/')
-        os.system('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/outputs/ -t s3://bucket-cneast3/caoyang/code/3d_vision/outputs/')
-    #
-    # if is_primary() and args.on_cloud:
-    #     print(
-    #         'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/3detr/%s/checkpoint.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint.pth' % (
-    #         args.checkpoint_dir, args.checkpoint_dir))
-        # os.system(
-        #     'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/3detr/%s/checkpoint.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint.pth' % (
-        #     args.checkpoint_dir, args.checkpoint_dir))
+
 
 
     reset_epoch_cnt = 0
@@ -437,7 +426,7 @@ def do_train(
                 metric_str = aps.metrics_to_str(metrics, per_class=False)
                 metrics_dict = aps.metrics_to_dict(metrics)
 
-            # os.system('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/3detr/%s/ -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/' % (args.checkpoint_dir, args.checkpoint_dir))
+            
             save_checkpoint(
                 args.checkpoint_dir,
                 model_no_ddp,
@@ -448,10 +437,7 @@ def do_train(
                 filename="checkpoint.pth",
             )
 
-            if is_primary() and args.on_cloud:
-                print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/checkpoint.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint.pth' % (args.checkpoint_dir, args.checkpoint_dir))
-                os.system('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/checkpoint.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint.pth' % (args.checkpoint_dir, args.checkpoint_dir))
-
+            
             if (not args.only_prompt_loss) and is_primary():
                 print("==" * 10)
                 print(f"Epoch [{all_epoch}/{args.max_epoch}]; Metrics {metric_str}")
@@ -473,12 +459,7 @@ def do_train(
                 best_val_metrics,
             )
 
-            if is_primary() and args.on_cloud:
-                print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/checkpoint_%04d.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint_%04d.pth' % (
-                args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-                os.system('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/checkpoint_%04d.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint_%04d.pth' % (
-                args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-
+            
         if (epoch % args.eval_every_epoch  == 0 and epoch > 0) or epoch == (args.max_epoch - 1):
             print('-----------begin to evaluate')
             ap_calculator = evaluate(
@@ -518,13 +499,7 @@ def do_train(
                 print(
                     f"Epoch [{all_epoch}/{args.max_epoch}] saved current best val checkpoint at {filename}; ap25 {ap25}"
                 )
-            if is_primary() and args.on_cloud:
-                print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/checkpoint_best.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint_best.pth' % (
-                    args.checkpoint_dir, args.checkpoint_dir))
-                os.system(
-                    'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/checkpoint_best.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/checkpoint_best.pth' % (
-                    args.checkpoint_dir, args.checkpoint_dir))
-
+            
 
         if (not args.only_prompt_loss) and (((all_epoch % args.real_eval_every_epoch == 0 )) or all_epoch == (args.max_epoch - 1)) and (all_epoch > 0):
         # if (all_epoch % args.real_eval_every_epoch == 0) or all_epoch == (args.max_epoch - 1):
@@ -548,11 +523,6 @@ def do_train(
                 f.write(metric_str)
 
             if is_primary() and args.on_cloud:
-                print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/eval_%04d.lst -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/eval_%04d.lst' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-                os.system(
-                    'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/eval_%04d.lst -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/eval_%04d.lst' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
                 print("==" * 10)
                 print(f"Test model; Metrics {metric_str}")
                 print("==" * 10)
@@ -591,23 +561,6 @@ def do_train(
                     f.write(metric_str)
 
             if is_primary() and args.on_cloud:
-                print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/cmp_eval_%04d.lst -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/cmp_eval_%04d.lst' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-                os.system(
-                    'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/cmp_eval_%04d.lst -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/cmp_eval_%04d.lst' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-
-                print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/cmp_eval_%04d_025.xlsx -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/cmp_eval_%04d_025.xlsx' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-                os.system(
-                    'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/cmp_eval_%04d_025.xlsx -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/cmp_eval_%04d_025.xlsx' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-
-                print('python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/cmp_eval_%04d_05.xlsx -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/cmp_eval_%04d_05.xlsx' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
-                os.system(
-                    'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/cmp_eval_%04d_05.xlsx -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/cmp_eval_%04d_05.xlsx' % (
-                    args.checkpoint_dir, all_epoch, args.checkpoint_dir, all_epoch))
                 print("==" * 10)
                 print(f"Test model; Metrics {metric_str}")
                 print("==" * 10)
@@ -649,13 +602,6 @@ def do_train(
         filename="last_checkpoint.pth",
     )
 
-    if is_primary() and args.on_cloud:
-        print(
-            'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/last_checkpoint.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/last_checkpoint.pth' % (
-                args.checkpoint_dir, args.checkpoint_dir))
-        os.system(
-            'python cloud_tools/mox.py -s /home/ma-user/modelarts/user-job-dir/ov_3d_det_release/%s/last_checkpoint.pth -t s3://bucket-cneast3/caoyang/code/3d_vision/%s/last_checkpoint.pth' % (
-            args.checkpoint_dir, args.checkpoint_dir))
 
     if is_primary():
         print("==" * 10)
@@ -1006,12 +952,6 @@ def test_model(args, model, model_no_ddp, criterion, dataset_config, dataloaders
         print('The log is saved in %s' % log_file)
         with open(log_file, 'w') as f:
             f.write(metric_str)
-        print(
-            'python cloud_tools/mox.py -s %s -t s3://bucket-cneast3/caoyang/code/3d_vision/%s' % (
-                log_file, args.test_ckpt[:-4]+'_'+log_file[:-4]+'.lst'))
-        os.system(
-            'python cloud_tools/mox.py -s %s -t s3://bucket-cneast3/caoyang/code/3d_vision/%s' % (
-                log_file, args.test_ckpt[:-4]+'_'+log_file[:-4]+'.lst'))
 
     else:
         print('Do not save log_file')
