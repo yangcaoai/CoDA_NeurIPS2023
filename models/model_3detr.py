@@ -189,6 +189,9 @@ class Model3DETRPredictedBoxDistillationHead(nn.Module):
         self.if_clip_more_prompts = if_clip_more_prompts
         self.if_with_clip_train = if_with_clip_train
         self.box_idx_list = np.arange(128, dtype=np.int8)
+        self.if_keep_box = if_keep_box
+        self.if_select_box_by_objectness = if_select_box_by_objectness
+        
         if self.if_with_clip_train:
             print('=============Adopt CLIP model to train the model=============')
             if args.dataset_name.find('scannet') != -1:
