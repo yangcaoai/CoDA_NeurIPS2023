@@ -82,6 +82,10 @@ bash test_release_models.sh
 bash scripts/coda_sunrgbd_stage1.sh
 bash scripts/coda_sunrgbd_stage2.sh
 ```
+## Running Samples
+```
+run_samples.sh
+```
 
 ## :scroll: BibTeX
 If CoDA is helpful, please cite:
