@@ -84,7 +84,7 @@ bash scripts/coda_sunrgbd_stage2.sh
 ```
 ## Running Samples
 ```
-run_samples.sh
+bash run_samples.sh
 ```
 
 ## :scroll: BibTeX
