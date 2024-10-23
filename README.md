@@ -13,7 +13,7 @@
 
 :triangular_flag_on_post: **Updates**  
 
-&#9745; The first work, 3DGS-DET, to introduce 3D Gaussian Splatting into 3D Object Detection is also released. Please check it out [here](https://arxiv.org/abs/2410.01647) !
+&#9745; The first work, 3DGS-DET, to introduce 3D Gaussian Splatting into 3D Object Detection is also released. Please check it out [here](https://arxiv.org/pdf/2410.01647) !
 
 &#9745; Our extended work **CoDAv2** is released, check out it on [arXiv](https://arxiv.org/abs/2406.00830) !
 
