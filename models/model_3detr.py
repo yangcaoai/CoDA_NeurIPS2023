@@ -905,8 +905,8 @@ class Model3DETRPredictedBoxDistillationHead(nn.Module):
                                          test=False,
                                          curr_epoch=-1):  # the max number of classes are 18(train) and 14(val)
         gt_center_ori = outputs[
-            "box_corners_xyz"]  # .clone().detach() #inputs["gt_box_corners_xyz"]  # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
-        objectness_prob = outputs["objectness_prob"]
+            "box_corners_xyz"].detach().clone()  # .clone().detach() #inputs["gt_box_corners_xyz"]  # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
+        objectness_prob = outputs["objectness_prob"].detach().clone()
         # img_batch_name = inputs['im_name']
         # gt_angles = inputs["gt_box_angles"]
         # gt_sizes = inputs["gt_box_sizes"]
@@ -1217,7 +1217,7 @@ class Model3DETRPredictedBoxDistillationHead(nn.Module):
                                                            curr_epoch=-1,
                                                            if_test=False):  # the max number of classes are 18(train) and 14(val)
         gt_center_ori = outputs[
-            "box_corners_xyz"]  # .clone().detach() #inputs["gt_box_corners_xyz"]  # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
+            "box_corners_xyz"].detach().clone()  # .clone().detach() #inputs["gt_box_corners_xyz"]  # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
         objectness_prob = outputs["objectness_prob"].detach().clone()
         K_tensor = inputs['K']
         Rtilt_tensor = inputs['Rtilt']
@@ -3092,7 +3092,7 @@ class Model3DETRMultiClassHead(nn.Module):
                                                            curr_epoch=-1,
                                                            if_test=False):  # the max number of classes are 18(train) and 14(val)
         gt_center_ori = outputs[
-            "box_corners_xyz"]  # .clone().detach() #inputs["gt_box_corners_xyz"]  # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
+            "box_corners_xyz"].detach().clone()  # .clone().detach() #inputs["gt_box_corners_xyz"]  # shape: (8, 64, 8, 3) box_predictions["outputs"]['center_unnormalized']
         objectness_prob = outputs["objectness_prob"].detach().clone()
         # img_batch_name = inputs['im_name']
         # gt_angles = inputs["gt_box_angles"]

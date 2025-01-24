@@ -292,28 +292,28 @@ class TransformerEncoderEveryLayer(nn.Module):
         if self.use_ffn:
             # Implementation of Feedforward model
             self.linear1 = nn.Linear(d_model, dim_feedforward, bias=ffn_use_bias)
-            self.dropout = nn.Dropout(dropout, inplace=True)
+            self.dropout = nn.Dropout(dropout, inplace=False)
             self.linear2 = nn.Linear(dim_feedforward, d_model, bias=ffn_use_bias)
             self.norm1 = NORM_DICT[norm_name](d_model)
             self.norm2 = NORM_DICT[norm_name](d_model)
-            self.dropout2 = nn.Dropout(dropout, inplace=True)
+            self.dropout2 = nn.Dropout(dropout, inplace=False)
 
         if self.use_ffn:
             # Implementation of Feedforward model
             self.cross_linear1 = nn.Linear(d_model, dim_feedforward, bias=ffn_use_bias)
-            self.cross_dropout = nn.Dropout(dropout, inplace=True)
+            self.cross_dropout = nn.Dropout(dropout, inplace=False)
             self.cross_linear2 = nn.Linear(dim_feedforward, d_model, bias=ffn_use_bias)
             self.cross_norm1 = NORM_DICT[norm_name](d_model)
             self.cross_norm2 = NORM_DICT[norm_name](d_model)
-            self.cross_dropout2 = nn.Dropout(dropout, inplace=True)
+            self.cross_dropout2 = nn.Dropout(dropout, inplace=False)
 
         # self.norm1 = NORM_DICT[norm_name](d_model)
-        self.dropout1 = nn.Dropout(dropout, inplace=True)
+        self.dropout1 = nn.Dropout(dropout, inplace=False)
 
         self.activation = ACTIVATION_DICT[activation]()
 
         # self.cross_norm1 = NORM_DICT[norm_name](d_model)
-        self.cross_dropout1 = nn.Dropout(dropout, inplace=True)
+        self.cross_dropout1 = nn.Dropout(dropout, inplace=False)
 
         self.cross_activation = ACTIVATION_DICT[activation]()
 
@@ -424,14 +424,14 @@ class TransformerEncoderLayer(nn.Module):
         if self.use_ffn:
             # Implementation of Feedforward model
             self.linear1 = nn.Linear(d_model, dim_feedforward, bias=ffn_use_bias)
-            self.dropout = nn.Dropout(dropout, inplace=True)
+            self.dropout = nn.Dropout(dropout, inplace=False)
             self.linear2 = nn.Linear(dim_feedforward, d_model, bias=ffn_use_bias)
             self.norm2 = NORM_DICT[norm_name](d_model)
             self.norm2 = NORM_DICT[norm_name](d_model)
-            self.dropout2 = nn.Dropout(dropout, inplace=True)
+            self.dropout2 = nn.Dropout(dropout, inplace=False)
 
         self.norm1 = NORM_DICT[norm_name](d_model)
-        self.dropout1 = nn.Dropout(dropout, inplace=True)
+        self.dropout1 = nn.Dropout(dropout, inplace=False)
 
         self.activation = ACTIVATION_DICT[activation]()
         self.normalize_before = normalize_before
@@ -510,13 +510,13 @@ class TransformerDecoderLayer(nn.Module):
         self.norm2 = NORM_DICT[norm_fn_name](d_model)
 
         self.norm3 = NORM_DICT[norm_fn_name](d_model)
-        self.dropout1 = nn.Dropout(dropout, inplace=True)
-        self.dropout2 = nn.Dropout(dropout, inplace=True)
-        self.dropout3 = nn.Dropout(dropout, inplace=True)
+        self.dropout1 = nn.Dropout(dropout, inplace=False)
+        self.dropout2 = nn.Dropout(dropout, inplace=False)
+        self.dropout3 = nn.Dropout(dropout, inplace=False)
 
         # Implementation of Feedforward model
         self.linear1 = nn.Linear(d_model, dim_feedforward)
-        self.dropout = nn.Dropout(dropout, inplace=True)
+        self.dropout = nn.Dropout(dropout, inplace=False)
         self.linear2 = nn.Linear(dim_feedforward, d_model)
 
         self.activation = ACTIVATION_DICT[activation]()
@@ -666,17 +666,17 @@ class TransformerSharedAttentionDecoderLayer(nn.Module):
 
         self.norm3 = NORM_DICT[norm_fn_name](d_model)
         self.norm3_im = NORM_DICT[norm_fn_name](d_model)
-        self.dropout1 = nn.Dropout(dropout, inplace=True)
-        self.dropout2 = nn.Dropout(dropout, inplace=True)
-        self.dropout2_im = nn.Dropout(dropout, inplace=True)
-        self.dropout3 = nn.Dropout(dropout, inplace=True)
-        self.dropout3_im = nn.Dropout(dropout, inplace=True)
+        self.dropout1 = nn.Dropout(dropout, inplace=False)
+        self.dropout2 = nn.Dropout(dropout, inplace=False)
+        self.dropout2_im = nn.Dropout(dropout, inplace=False)
+        self.dropout3 = nn.Dropout(dropout, inplace=False)
+        self.dropout3_im = nn.Dropout(dropout, inplace=False)
 
         # Implementation of Feedforward model
         self.linear1 = nn.Linear(d_model, dim_feedforward)
         self.linear1_im = nn.Linear(d_model, dim_feedforward)
-        self.dropout = nn.Dropout(dropout, inplace=True)
-        self.dropout_im = nn.Dropout(dropout, inplace=True)
+        self.dropout = nn.Dropout(dropout, inplace=False)
+        self.dropout_im = nn.Dropout(dropout, inplace=False)
         self.linear2 = nn.Linear(dim_feedforward, d_model)
         self.linear2_im = nn.Linear(dim_feedforward, d_model)
 
@@ -937,18 +937,18 @@ class TransformerGuidenceSharedAttentionDecoderLayer(nn.Module):
 
         self.norm3 = NORM_DICT[norm_fn_name](d_model)
         self.norm3_im = NORM_DICT[norm_fn_name](d_model)
-        self.dropout1 = nn.Dropout(dropout, inplace=True)
-        self.dropout1_im = nn.Dropout(dropout, inplace=True)
-        self.dropout2 = nn.Dropout(dropout, inplace=True)
-        self.dropout2_im = nn.Dropout(dropout, inplace=True)
-        self.dropout3 = nn.Dropout(dropout, inplace=True)
-        self.dropout3_im = nn.Dropout(dropout, inplace=True)
+        self.dropout1 = nn.Dropout(dropout, inplace=False)
+        self.dropout1_im = nn.Dropout(dropout, inplace=False)
+        self.dropout2 = nn.Dropout(dropout, inplace=False)
+        self.dropout2_im = nn.Dropout(dropout, inplace=False)
+        self.dropout3 = nn.Dropout(dropout, inplace=False)
+        self.dropout3_im = nn.Dropout(dropout, inplace=False)
 
         # Implementation of Feedforward model
         self.linear1 = nn.Linear(d_model, dim_feedforward)
         self.linear1_im = nn.Linear(d_model, dim_feedforward)
-        self.dropout = nn.Dropout(dropout, inplace=True)
-        self.dropout_im = nn.Dropout(dropout, inplace=True)
+        self.dropout = nn.Dropout(dropout, inplace=False)
+        self.dropout_im = nn.Dropout(dropout, inplace=False)
         self.linear2 = nn.Linear(dim_feedforward, d_model)
         self.linear2_im = nn.Linear(dim_feedforward, d_model)
 
