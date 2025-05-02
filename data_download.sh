@@ -1,3 +1,4 @@
+# download sunrgbd datasets from huggingface
 git clone https://huggingface.co/datasets/YangCaoCS/Open-Vocabulary-SUN-RGBD
 cd Open-Vocabulary-SUN-RGBD
 apt install git-lfs
