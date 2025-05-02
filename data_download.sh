@@ -1,27 +1,10 @@
-#!/bin/bash
-
-# 下载SUNRBGD文件的 URL
-url="https://hkustconnect-my.sharepoint.com/personal/ycaobd_connect_ust_hk/_layouts/15/download.aspx?UniqueId=27fbe743-303a-480b-8ab7-eac0d859f2ca&Translate=false&tempauth=v1.eyJzaXRlaWQiOiJlZjc3ODAyMC0yOTc1LTQ0ZDYtOGFiMC1iYTA1ZjU1ZTViODkiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvaGt1c3Rjb25uZWN0LW15LnNoYXJlcG9pbnQuY29tQDZjMWQ0MTUyLTM5ZDAtNDRjYS04OGQ5LWI4ZDZkZGNhMDcwOCIsImV4cCI6IjE3MzUzMzMzODUifQ.CgkKBHNuaWQSATgSCwjipfKbs6TTPRAFGg00NS4xNDYuMjMyLjc4IhRtaWNyb3NvZnQuc2hhcmVwb2ludCosd0tVR05lVDgzOHQ2WkwwbjB0L1BlSmtHTithWFRMdVpEZWU5Q3k3dUpiZz0wnQE4AUIQoXGr0m6wAEBJnfDXYN_1CEoQaGFzaGVkcHJvb2Z0b2tlbmIEdHJ1ZWokOWNiNzcyZWEtYTk1OS00ZGM1LWJhODEtOTBkYTAzNGJkYzhjcikwaC5mfG1lbWJlcnNoaXB8MTAwMzIwMDFjOTFiNTI4NkBsaXZlLmNvbXoBMMIBJTAjLmZ8bWVtYmVyc2hpcHx5Y2FvYmRAY29ubmVjdC51c3QuaGvIAQE.-ORn6qmURj-C_KJmYuivho0itm5NqefbX3qEqodLt44"
-
-# 输出文件名
-output_file="sunrgbd_trainval.tar"
-
-# 使用 curl 下载文件
-curl -L -o "$output_file" "$url"
-
-echo "下载完成：$output_file"
+git clone https://huggingface.co/datasets/YangCaoCS/Open-Vocabulary-SUN-RGBD
+cd Open-Vocabulary-SUN-RGBD
+apt install git-lfs
+git lfs install
+git lfs pull
 
 
-# 下载SUNRBGD文件的 URL
-url="https://hkustconnect-my.sharepoint.com/personal/ycaobd_connect_ust_hk/_layouts/15/download.aspx?UniqueId=c1818df7-711a-4bf4-81ea-97e964770a0d&Translate=false&tempauth=v1.eyJzaXRlaWQiOiJlZjc3ODAyMC0yOTc1LTQ0ZDYtOGFiMC1iYTA1ZjU1ZTViODkiLCJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvaGt1c3Rjb25uZWN0LW15LnNoYXJlcG9pbnQuY29tQDZjMWQ0MTUyLTM5ZDAtNDRjYS04OGQ5LWI4ZDZkZGNhMDcwOCIsImV4cCI6IjE3MzUzMzM4OTIifQ.CgkKBHNuaWQSATgSCwi4uLH52KTTPRAFGg00NS4xNDYuMjMyLjc4IhRtaWNyb3NvZnQuc2hhcmVwb2ludCosWlRlQ0w4ZXU3WlNPTnVtQjBxcjZjYUp1eERWaVIzWHpaZzZEWkM3dkdNYz0wnQE4AUIQAAAAAAAAAAAAAAAAAAAAAEoQaGFzaGVkcHJvb2Z0b2tlbmIEdHJ1ZWokOWNiNzcyZWEtYTk1OS00ZGM1LWJhODEtOTBkYTAzNGJkYzhjcikwaC5mfG1lbWJlcnNoaXB8MTAwMzIwMDFjOTFiNTI4NkBsaXZlLmNvbXoBMMIBJTAjLmZ8bWVtYmVyc2hpcHx5Y2FvYmRAY29ubmVjdC51c3QuaGvIAQE.Lnn2gkMFIgYSEdJu-fKrF-7NZxz4RWtLazwWFMd9mxM"
-
-# 输出文件名
-output_file="sunrgbd_v1_revised_0415.tar"
-
-# 使用 curl 下载文件
-curl -L -o "$output_file" "$url"
-
-echo "下载完成：$output_file"
 
 
 # First file
