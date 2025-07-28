@@ -94,18 +94,17 @@ If CoDA is helpful, please cite:
 ```
 @inproceedings{cao2023coda,
   title={CoDA: Collaborative Novel Box Discovery and Cross-modal Alignment for Open-vocabulary 3D Object Detection},
-  author={Cao, Yang and Zeng, Yihan and Xu, Hang  and  Xu, Dan},
+  author={Cao, Yang and Zeng, Yihan and Xu, Hang and Xu, Dan},
   booktitle={NeurIPS},
   year={2023}
 }
 
-
 @article{cao2024collaborative,
-            title={Collaborative Novel Object Discovery and Box-Guided Cross-Modal Alignment for Open-Vocabulary 3D Object Detection},
-            author={Yang Cao and Yihan Zeng and Hang Xu and Dan Xu},
-            journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
-            year={2025}
-          }
+  title={Collaborative Novel Object Discovery and Box-Guided Cross-Modal Alignment for Open-Vocabulary 3D Object Detection},
+  author={Cao, Yang and Zeng, Yihan and Xu, Hang and Xu, Dan},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  year={2025}
+}
 ```
 
 ## :e-mail: Contact
