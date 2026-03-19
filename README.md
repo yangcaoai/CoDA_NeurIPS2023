@@ -73,7 +73,8 @@ bash data_preparation.sh
 ```
 
 ## Evaluation
-Download the pretrained models [here](https://drive.google.com/file/d/1fTKX1ML5u8jJ249GwAYqdCZGs941907H/view?usp=drive_link).
+<!-- > Download the pretrained models [here](https://drive.google.com/file/d/1fTKX1ML5u8jJ249GwAYqdCZGs941907H/view?usp=drive_link). -->
+Download the pretrained models [here](https://huggingface.co/YangCaoCS/codav1_released_models).
 Then run:
 ```
 bash test_release_models.sh
