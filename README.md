@@ -54,7 +54,7 @@ scipy
 Please install `pointnet2` layers by running
 
 ```
-cd third_party/pointnet2 && python setup.py install
+cd third_party_pointnet2/pointnet2 && python setup.py install
 ```
 
 Please install a Cythonized implementation of gIOU for faster training.
