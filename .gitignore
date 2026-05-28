@@ -15,7 +15,9 @@ outputs/
 
 CLIP/pretrain_models/*
 *.pth
-**/.pth
+**/*.pth
 *.pt
-**/pt
+**/*.pt
+*.backup
+**/*.backup
 
