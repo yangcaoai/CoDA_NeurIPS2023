@@ -43,10 +43,10 @@ from utils.votenet_pc_util import write_oriented_bbox, write_ply, write_ply_rgb
 MEAN_COLOR_RGB = np.array([0.5, 0.5, 0.5])  # sunrgbd color is in 0~1
 #DATA_PATH_V1 = "/cache/data/sunrgbd_moreclass_dealed/sunrgbd_pc_bbox_votes_50k_v1_more_classes" ## Replace with path to dataset
 #DATA_PATH_V2 = "/cache/data/sunrgbd_moreclass_dealed/sunrgbd_pc_bbox_votes_50k_v2_more_classes" ## Not used in the codebase.
-#DATA_PATH_V1 = "Data/3d_indoor/sunrgb_d/sunrgbd_moreclassv2_dealed/sunrgbd_pc_bbox_votes_50k_v1_more_classesv2"
-#DATA_PATH_V2 = "Data/3d_indoor/sunrgb_d/sunrgbd_moreclassv2_dealed/sunrgbd_pc_bbox_votes_50k_v2_more_classesv2"
-#DATA_PATH_V1 = "Data/3d_indoor/sunrgb_d/sunrgbd_dealed/sunrgbd_pc_bbox_votes_50k_v1"
-#DATA_PATH_V2 = "Data/3d_indoor/sunrgb_d/sunrgbd_dealed/sunrgbd_pc_bbox_votes_50k_v2"
+#DATA_PATH_V1 = "Data/sunrgb_d/sunrgbd_moreclassv2_dealed/sunrgbd_pc_bbox_votes_50k_v1_more_classesv2"
+#DATA_PATH_V2 = "Data/sunrgb_d/sunrgbd_moreclassv2_dealed/sunrgbd_pc_bbox_votes_50k_v2_more_classesv2"
+#DATA_PATH_V1 = "Data/sunrgb_d/sunrgbd_dealed/sunrgbd_pc_bbox_votes_50k_v1"
+#DATA_PATH_V2 = "Data/sunrgb_d/sunrgbd_dealed/sunrgbd_pc_bbox_votes_50k_v2"
 here_path = os.getcwd()
 if here_path.find('user-job-dir')!=-1:
     # DATA_PATH_V1 = "/cache/data/sunrgbd_allclasses/sunrgbd_pc_bbox_votes_50k_v1_all_classes" ## Replace with path to dataset
@@ -64,13 +64,13 @@ if here_path.find('user-job-dir')!=-1:
     ALL_SUPERCLASS_PATH = "datasets/all_classes_trainval_v2_revised_del_val_less_than_5_classes_lvis_combined_1201classes.npy"
 
 else:
-    # DATA_PATH_V1 = "Data/3d_indoor/sunrgb_d/sunrgbd_allclasses/sunrgbd_pc_bbox_votes_50k_v1_all_classes"
-    DATA_PATH_V1 = "Data/3d_indoor/sunrgb_d/sunrgbd_v1_revised_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_revised_0415"
-    # DATA_PATH_V2 = "Data/3d_indoor/sunrgb_d/sunrgbd_v2_238classes/sunrgbd_pc_bbox_votes_50k_v2_238classes"
-    DATA_PATH_V2 = "Data/3d_indoor/sunrgb_d/sunrgbd_v2_232classes/sunrgbd_pc_bbox_votes_50k_v2_232classes"
-    # DATA_PATH_V2 = "Data/3d_indoor/sunrgb_d/sunrgbd_v2_allclasses/sunrgbd_pc_bbox_votes_50k_v2_all_classes"
-    CALIB_PATH = "Data/3d_indoor/sunrgb_d/sunrgbd_trainval/calib/"
-    IMAGE_PATH = "Data/3d_indoor/sunrgb_d/sunrgbd_trainval/image/"
+    # DATA_PATH_V1 = "Data/sunrgb_d/sunrgbd_allclasses/sunrgbd_pc_bbox_votes_50k_v1_all_classes"
+    DATA_PATH_V1 = "Data/sunrgb_d/sunrgbd_v1_revised_0415/sunrgbd_pc_bbox_votes_50k_v1_all_classes_revised_0415"
+    # DATA_PATH_V2 = "Data/sunrgb_d/sunrgbd_v2_238classes/sunrgbd_pc_bbox_votes_50k_v2_238classes"
+    DATA_PATH_V2 = "Data/sunrgb_d/sunrgbd_v2_232classes/sunrgbd_pc_bbox_votes_50k_v2_232classes"
+    # DATA_PATH_V2 = "Data/sunrgb_d/sunrgbd_v2_allclasses/sunrgbd_pc_bbox_votes_50k_v2_all_classes"
+    CALIB_PATH = "Data/sunrgb_d/sunrgbd_trainval/calib/"
+    IMAGE_PATH = "Data/sunrgb_d/sunrgbd_trainval/image/"
     # ALL_CLASS_PATH = "datasets/all_classes_trainval.npy"
     # ALL_CLASS_PATH = "datasets/all_classes_trainval_v2_del_nonval_classes.npy"
     # ALL_CLASS_PATH = "datasets/all_classes_trainval_v2_del_val_less_than_5_classes_anonymous.npy"
