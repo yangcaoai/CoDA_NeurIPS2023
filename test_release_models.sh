@@ -7,19 +7,19 @@ export C10_LOG_LEVEL=ERROR
 export TORCH_CPP_LOG_LEVEL=ERROR
 export TORCH_DISTRIBUTED_DEBUG=OFF
 
-# CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
-# python3 main.py --dataset_name sunrgbd_image --nqueries 128 \
-# --test_ckpt pretrained_model_codav2_released/sunrgbd/checkpoint_0400.pth  \
-# --if_after_nms --model_name 3detr_predictedbox_distillation_head_globalpool_2dbox  \
-# --ngpus 8 --enc_dim 256 --dec_dim 512 --train_range_max 10 \
-# --test_range_max 46 --num_semcls 46 --test_num_semcls 46 \
-# --log_file ./model_release_sunrgbdv1_after_3dnod.lst --if_input_image \
-#  --pooling_methods 'average' --cross_enc_nlayers 3  --cross_enc_dim 256 \
-#  --cross_num_layers 3 --cross_heads 4 --cross_enc_nlayers 3 --if_clip_more_prompts  \
-#  --test_only --batchsize_per_gpu_test 48 \
-#  --loss_sem_cls_softmax_weight 1 \
-#  --if_use_v1 \
-#  --if_with_bg_cate \
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+python3 main.py --dataset_name sunrgbd_image --nqueries 128 \
+--test_ckpt pretrained_model_codav2_released/sunrgbd/checkpoint_0400.pth  \
+--if_after_nms --model_name 3detr_predictedbox_distillation_head_globalpool_2dbox  \
+--ngpus 8 --enc_dim 256 --dec_dim 512 --train_range_max 10 \
+--test_range_max 46 --num_semcls 46 --test_num_semcls 46 \
+--log_file ./model_release_sunrgbdv1_after_3dnod.lst --if_input_image \
+ --pooling_methods 'average' --cross_enc_nlayers 3  --cross_enc_dim 256 \
+ --cross_num_layers 3 --cross_heads 4 --cross_enc_nlayers 3 --if_clip_more_prompts  \
+ --test_only --batchsize_per_gpu_test 48 \
+ --loss_sem_cls_softmax_weight 1 \
+ --if_use_v1 \
+ --if_with_bg_cate \
 
 
 
