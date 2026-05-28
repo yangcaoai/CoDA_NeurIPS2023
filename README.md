@@ -114,7 +114,7 @@ If CoDA is helpful, please cite:
 
 ## :e-mail: Contact
 
-If you have any question or collaboration need (research purpose or commercial purpose), please email `yangcao.cs@gmail.com`.
+If you have any question or collaboration need, please email `yangcao.cs@gmail.com`.
 
 ## :scroll: Acknowledgement
 CoDA is inspired by [CLIP](https://github.com/openai/CLIP) and [3DETR](https://github.com/facebookresearch/3detr). We appreciate their great codes.
