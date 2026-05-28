@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (c) Facebook, Inc. and its affiliates.
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python main.py --dataset_name scannet_3d_nod_with_global_novel_pool_dino_2d_box \
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python main.py --dataset_name sunrgbd_3d_nod_with_global_novel_pool_dino_2d_box \
 --model_name 3detr_predictedbox_distillation_head_globalpool_2dbox \
 --if_input_image \
 --if_image_augment True \
@@ -17,24 +17,22 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python main.py --dataset_name scannet_3d_no
 --train_range_min 0 \
 --train_range_max 10 \
 --test_range_min 0 \
---test_range_max 60 \
+--test_range_max 46 \
 --max_epoch 1080 \
 --ngpus 8 \
 --nqueries 128 \
---base_lr 1.4142e-4 \
+--base_lr 1.97e-4  \
 --warm_lr_epochs 18 \
 --eval_every_epoch 10000000000 \
 --batchsize_per_gpu 8 \
 --batchsize_per_gpu_test 32 \
---train_range_list 2 4 5 7 13 15 16 22 56 1163 \
---test_range_list 2 4 5 6 7 8 9 10 11 13 14 15 16 17 18 19 21 22 23 24 26 27 28 29 31 32 33 34 35 36 38  39  40  41  42  44  45  46  47  48  49  50  51  52  54  55  56  57  58  59  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  82  84  86  87  88  89  90  93  95  96  97  98  99  100  101  102  103  104  105  106  107  110  112  115  116  118  120  121  122  125  128  130  131  132  134  136  138  139  140  141  145  148  154  155  156  157  159  161  163  165  166  168  169  170  177  180  185  188  191  193  195  202  208  213  214  221  229  230  232  233  242  250  261  264  276  283  286  300  304  312  323  325  331  342  356  370  392  395  399  408  417  488  540 562  570  572  581  609  748  776  1156  1163  1164  1165  1166  1167  1168  1169  1170  1171  1172  1173  1174  1175  1176  1178  1179  1180  1181  1182  1183  1184  1185  1186  1187  1188  1189  1190  1191 \
---matcher_giou_cost 2 \
+--matcher_giou_cost 3 \
 --pooling_methods average \
 --matcher_cls_cost 1 \
---matcher_center_cost 0 \
---matcher_objectness_cost 0 \
+--matcher_center_cost 5 \
+--matcher_objectness_cost 5 \
 --loss_giou_weight 0 \
---loss_no_object_weight 0.25 \
+--loss_no_object_weight 0.05 \
 --loss_contrastive_weight 0 \
 --loss_sem_focal_cls_weight 0 \
 --loss_sem_cls_weight 0 \
@@ -43,9 +41,9 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python main.py --dataset_name scannet_3d_no
 --loss_region_embed_weight 0 \
 --loss_contrast_object_text 0 \
 --save_separate_checkpoint_every_epoch 20 \
---dist_url tcp://localhost:16519 \
---checkpoint_dir outputs/scannet_codav2 \
---checkpoint_file pretrained_model_codav1_stage1/scannet_codav1_stage1/last_checkpoint.pth \
+--dist_url tcp://localhost:18669 \
+--checkpoint_dir outputs/sunrgbd_codav2 \
+--checkpoint_file codav1_released_models/outputs/coda_sunrgbd_stage1/last_checkpoint.pth \
 --if_clip_more_prompts \
 --keep_objectness 1000 \
 --save_objectness 0.3 \
@@ -59,10 +57,9 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python main.py --dataset_name scannet_3d_no
 --clip_driven_keep_thres 0.3 \
 --if_clip_superset \
 --real_cmp_eval_every_epoch 1000000000 \
+--if_use_v1 \
+--test_num_semcls 46 \
 --distillation_box_num 32 \
---test_num_semcls 60 \
---image_size_width 1296 \
---image_size_height 968 \
 --if_clip_superset \
 --loss_feat_seen_softmax_weakly_loss_with_novel_cate_confi_weight 1 \
 --online_3d_nod_global_novel_wo_denoising \
@@ -70,12 +67,10 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python main.py --dataset_name scannet_3d_no
 --if_clip_weak_labels \
 --confidence_type  non-confidence \
 --if_accumulate_former_pseudo_labels \
---reset_scannet_num 50 \
---if_adopt_caption_scannet_0415 \
+--if_adopt_caption_0313 \
 --if_get_global_embedding \
 --loss_predicted_region_embed_l1_global_weight 1 \
---max_global_obj 3 \
+--max_global_obj 5 \
 --box2d_driven_iou -1000 \
 --box2d_driven_bg_iou 0.005 \
 --if_with_bg_cate \
---conclusion_thres 1000 \
