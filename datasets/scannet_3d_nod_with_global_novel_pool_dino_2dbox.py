@@ -35,12 +35,12 @@ if here_path.find('user-job-dir')!=-1:
     ALL_SUPERCLASS_PATH = "datasets/scannet_seen_and_obj365_cate_to_idx.npy"
     ALL_GLOBAL_OBJECT_PATH = "/cache/data/make_data_scannet200_cluster/scannet_frames_25k_200cls_noveltrain_global_novel_setting0/"
 else:
-    # DATASET_SCANS_DIR = "Data/scannet/scans/scans/"  ## Replace with path to dataset
-    DATASET_ROOT_DIR = "Data/scannet/scans/scannet_frames_25k/make_data_scannet200_cluster/scannet_frames_25k_200cls_train"
-    DATASET_PARAMS_DIR = "Data/scannet/scans/scannet_frames_25k/make_data_scannet200_cluster/matrix"
-    BOX2D_PATH = 'Data/scannet/scans/scannet_frames_25k/make_data_scannet200_cluster/scannet_groundingDino_2dboxes'
+    # DATASET_SCANS_DIR = "Data/scannet/"  ## Replace with path to dataset
+    DATASET_ROOT_DIR = "Data/scannet/scannet_frames_25k/make_data_scannet200_cluster/scannet_frames_25k_200cls_train"
+    DATASET_PARAMS_DIR = "Data/scannet/scannet_frames_25k/make_data_scannet200_cluster/matrix"
+    BOX2D_PATH = 'Data/scannet/scannet_frames_25k/make_data_scannet200_cluster/scannet_groundingDino_2dboxes'
     ALL_SUPERCLASS_PATH = "datasets/scannet_seen_and_obj365_cate_to_idx.npy"
-    ALL_GLOBAL_OBJECT_PATH = "Data/scannet/scans/scannet_frames_25k/make_data_scannet200_cluster/scannet_frames_25k_200cls_noveltrain_global_novel_setting0/"
+    ALL_GLOBAL_OBJECT_PATH = "Data/scannet/scannet_frames_25k/make_data_scannet200_cluster/scannet_frames_25k_200cls_noveltrain_global_novel_setting0/"
 
 DATASET_CLASS_NAME_ID = "datasets/scannet_200_class2id.npy"
 DATASET_METADATA_DIR = "datasets/meta_data" ## Replace with path to dataset
