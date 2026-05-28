@@ -10,3 +10,4 @@ cd Data/scannet/
 cat scannet200_data.tar.* | tar -xvf
 cd -
 echo "Finished"
+
