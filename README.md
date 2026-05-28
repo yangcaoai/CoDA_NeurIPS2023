@@ -13,6 +13,8 @@
 
 :triangular_flag_on_post: **Updates**  
 
+&#9745; The codes and pretrained models of CoDAv2 are rleased. Please check it in the git branch named 'CoDAv2'.
+
 &#9745; Our new work **CoDAv2** is accepted by TPAMI, check out it [here](https://arxiv.org/pdf/2406.00830v2) !
 
 &#9745; As the first work to introduce 3D Gaussian Splatting into 3D Object Detection, 3DGS-DET is released [here](https://arxiv.org/pdf/2410.01647) !
